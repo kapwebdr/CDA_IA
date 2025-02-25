@@ -1,9 +1,0 @@
-TRANSFORMERS : 
-Temps de génération : 16.46 secondes
-Vitesse : 5.04 tokens/s
-LLAMACPP :
-Temps de génération : 4.53 secondes
-Vitesse : -18.32 tokens/s
-MLX :
-Temps de génération : 1.70 secondes
-Vitesse : 45.91 tokens/s
