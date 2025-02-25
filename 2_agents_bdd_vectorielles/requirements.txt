@@ -1,0 +1,10 @@
+torch
+transformers
+langchain
+langchain-core
+langchain-community
+langchain-huggingface
+faiss-cpu
+sentence-transformers
+langchain-text-splitters
+accelerate
