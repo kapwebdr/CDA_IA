@@ -1,10 +1,12 @@
-#python -m venv .env
-#source .env/bin/activate
-#pip install transformers
-#pip install torch torchvision torchaudio
-#python Sentiment.py
-
 from transformers import pipeline
+from pathlib import Path
+import os
+# Définir le chemin du cache
+cache_dir = Path("../cache_model")
+# Créer le dossier cache s'il n'existe pas
+cache_dir.mkdir(parents=True, exist_ok=True)
+os.environ["HF_HOME"] = "../cache_model"
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.path.join("../cache_model", "hub")
 
 classifier = pipeline("sentiment-analysis")
 classifier("We are very happy to show you the 🤗 Transformers library.")

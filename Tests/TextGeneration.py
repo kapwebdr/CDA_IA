@@ -1,10 +1,16 @@
 from transformers import AutoTokenizer
 import transformers
 import torch
+from pathlib import Path
+import os
+# Définir le chemin du cache
+cache_dir = Path("../cache_model")
+os.environ["HF_HOME"] = "../cache_model"
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.path.join("../cache_model", "hub")
 
 model = "tiiuae/falcon-7b-instruct"
 
-tokenizer = AutoTokenizer.from_pretrained(model)
+tokenizer = AutoTokenizer.from_pretrained(model, cache_dir=cache_dir)
 pipeline = transformers.pipeline(
     "text-generation",
     model=model,
@@ -12,6 +18,7 @@ pipeline = transformers.pipeline(
     torch_dtype=torch.bfloat16,
     trust_remote_code=True,
     device_map="auto",
+    cache_dir=cache_dir
 )
 sequences = pipeline(
    "Write a poem about Valencia.",

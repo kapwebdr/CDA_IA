@@ -1,15 +1,27 @@
-#pip install diffusers --upgrade
-#pip install invisible_watermark transformers accelerate safetensors
-
 from diffusers import DiffusionPipeline
 import torch
 from pathlib import Path
 from slugify import slugify
+import os
 
-pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+# Définir le chemin du cache
+cache_dir = Path("../cache_model")
+os.environ["HF_HOME"] = "../cache_model"
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.path.join("../cache_model", "hub")
+
+# Créer le dossier cache s'il n'existe pas
+cache_dir.mkdir(parents=True, exist_ok=True)
+
+pipe = DiffusionPipeline.from_pretrained(
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
+    use_safetensors=True,
+    variant="fp16",
+    cache_dir=cache_dir
+)
 pipe.to("mps")
 
-prompt = "RAW photo, a ((Full Shot)) full naked body photo of 28 y.o beautiful ((Caucasian woman)) strong warrior in an (warrior princess) in ((cyberpunk)) (high detailed skin:1.2) 8k uhd, DSLR, soft lighting, high quality, film grain, Fujifilm XT3"
+prompt = "RAW photo, a ((Full Shot)) full body photo of 28 y.o beautiful ((Caucasian woman)) strong warrior in an (warrior princess) in ((cyberpunk)) (high detailed skin:1.2) 8k uhd, DSLR, soft lighting, high quality, film grain, Fujifilm XT3"
 images = pipe(prompt=prompt).images
 DIR_NAME="./images/"
 dirpath = Path(DIR_NAME)
@@ -17,6 +29,7 @@ dirpath = Path(DIR_NAME)
 dirpath.mkdir(parents=True, exist_ok=True)
 
 for idx, image in enumerate(images):
-    image_name = f'{slugify(prompt)}-{idx}.png'
+    # Utiliser str() pour s'assurer que le prompt est une chaîne de caractères
+    image_name = f'{slugify(str(prompt))}-{idx}.png'
     image_path = dirpath / image_name
     image.save(image_path)

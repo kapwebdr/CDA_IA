@@ -1,0 +1,10 @@
+diffusers
+invisible_watermark
+transformers
+accelerate
+safetensors
+python-slugify
+scipy
+timm
+torchvision
+torchaudio

@@ -1,18 +1,22 @@
-# pip install --upgrade pip
-# pip install --upgrade transformers scipy
-
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import scipy
 from pathlib import Path
 from slugify import slugify
+import os
+# Définir le chemin du cache
+cache_dir = Path("../cache_model")
+# Créer le dossier cache s'il n'existe pas
+cache_dir.mkdir(parents=True, exist_ok=True)
+os.environ["HF_HOME"] = "../cache_model"
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.path.join("../cache_model", "hub")
 
 DIR_NAME="./audio/"
 dirpath = Path(DIR_NAME)
 # create parent dir if doesn't exist
 dirpath.mkdir(parents=True, exist_ok=True)
 
-processor = AutoProcessor.from_pretrained("facebook/musicgen-large")
-model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-large")
+processor = AutoProcessor.from_pretrained("facebook/musicgen-large", cache_dir=cache_dir)
+model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-large", cache_dir=cache_dir)
 
 prompt = "Dub step wooble synth"
 

@@ -2,12 +2,21 @@ from transformers import DetrImageProcessor, DetrForObjectDetection
 import torch
 from PIL import Image
 import requests
+from pathlib import Path
+import os
+# Définir le chemin du cache
+cache_dir = Path("../cache_model")
+os.environ["HF_HOME"] = "../cache_model"
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.path.join("../cache_model", "hub")
 
-url = "..."
+# Créer le dossier cache s'il n'existe pas
+cache_dir.mkdir(parents=True, exist_ok=True)
+
+url = "https://cdn-imgix.headout.com/media/images/c90f7eb7a5825e6f5e57a5a62d05399c-25058-BestofParis-EiffelTower-Cruise-Louvre-002.jpg"
 image = Image.open(requests.get(url, stream=True).raw)
 
-processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50")
-model = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50")
+processor       = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50", cache_dir=cache_dir)
+model           = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50", cache_dir=cache_dir)
 
 inputs = processor(images=image, return_tensors="pt")
 outputs = model(**inputs)
