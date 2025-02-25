@@ -29,6 +29,9 @@ def format_prompt(system_prompt, history, user_input):
 
     return prompt
 
+
+
+
 def generate_text(model, tokenizer, system_prompt, history, user_input, max_length=200):
     """ Génère un texte basé sur un prompt formaté pour LLaMA 3.2 """
     
