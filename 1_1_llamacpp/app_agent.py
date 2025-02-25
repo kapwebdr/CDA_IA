@@ -25,6 +25,19 @@ MODEL_CONFIG = ModelConfig(
     model_path="unsloth/Llama-3.2-1B-Instruct"
 )
 
+def hello_dragonball(question: str) -> str:
+    """Fonction spéciale pour les questions sur Dragon Ball"""
+    return f"""
+    DRAGON BALL MODE ACTIVATED! 🐉
+    
+    Votre question sur Dragon Ball: {question}
+    
+    Comme dirait Goku: "Je suis Son Goku, et je suis un Saiyan venu de la Terre!"
+    
+    Je suis un agent spécialisé en Dragon Ball, mais je suis encore en entraînement avec Maître Kaio.
+    Revenez plus tard quand j'aurai atteint le Super Saiyan! 💪
+    """
+
 def setup_agent():
     """Configure l'agent avec la base de connaissances locale et la recherche web"""
     # 1. Chargement du modèle
@@ -117,14 +130,24 @@ def main():
     print("\nAgent prêt ! Posez vos questions (ou 'quit' pour quitter)")
     print("Ajoutez '!web' à votre question pour forcer la recherche internet")
     
+    # Mots-clés Dragon Ball
+    dragonball_keywords = [
+        "goku", "dragon ball", "dragonball", "saiyan", "vegeta", "gohan", 
+        "piccolo", "freezer", "cell", "buu", "kamehameha", "super saiyan"
+    ]
+    
     while True:
-        question = input("\nVous: ")
-        if question.lower() == 'quit':
+        question = input("\nVous: ").lower()
+        if question == 'quit':
             print("\nAu revoir!")
             break
         
         try:
-            if "!web" in question:
+            # Vérifier si la question concerne Dragon Ball
+            if any(keyword in question for keyword in dragonball_keywords):
+                response = hello_dragonball(question)
+                print(response)
+            elif "!web" in question:
                 # Recherche web
                 question = question.replace("!web", "").strip()
                 search_result = search_tool.run(f"Naruto {question}")
@@ -134,9 +157,9 @@ def main():
                 })
                 print("\nAssistant (Web):", response['text'])
             else:
-                # Base de connaissances locale
+                # Base de connaissances locale Naruto
                 response = local_chain.invoke({"input": question})
-                print("\nAssistant (Local):", response['answer'])
+                print("\nAssistant (Naruto):", response['answer'])
                 
         except Exception as e:
             print(f"\nErreur: {str(e)}")
