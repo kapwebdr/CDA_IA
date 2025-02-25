@@ -3,3 +3,10 @@ transformers
 accelerate
 mlx-lm 
 llama-cpp-python
+langchain
+langchain-core
+langchain-community
+langchain-huggingface
+faiss-cpu
+sentence-transformers
+langchain-text-splitters
