@@ -2,7 +2,7 @@ import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Chemin du cache local
-CACHE_DIR = "./cache_model"
+CACHE_DIR = "../cache_model"
 MODEL_NAME = "unsloth/Llama-3.2-1B-Instruct"
 
 def load_model():
