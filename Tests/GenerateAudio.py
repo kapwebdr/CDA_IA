@@ -18,7 +18,8 @@ dirpath.mkdir(parents=True, exist_ok=True)
 processor = AutoProcessor.from_pretrained("facebook/musicgen-large", cache_dir=cache_dir)
 model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-large", cache_dir=cache_dir)
 
-prompt = "Dub step wooble synth"
+# Demander le prompt à l'utilisateur
+prompt = input("Entrez votre description audio (prompt) : ")
 
 inputs = processor(
     text=[prompt],

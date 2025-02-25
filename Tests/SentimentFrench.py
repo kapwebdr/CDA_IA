@@ -12,5 +12,18 @@ os.environ["HUGGINGFACE_HUB_CACHE"] = os.path.join("../cache_model", "hub")
 model = AutoModelForSequenceClassification.from_pretrained(model_name, cache_dir=cache_dir)
 tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
 classifier = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
-results = classifier("Tesla c'est génial")
+
+# Demander le texte à analyser en français
+texte = input("Entrez le texte en français à analyser : ")
+
+results = classifier(texte)
 print(results)
+
+# Option pour analyser plusieurs textes
+while True:
+    more = input("Voulez-vous analyser un autre texte ? (o/n) : ")
+    if more.lower() != 'o':
+        break
+    texte = input("Entrez le texte en français à analyser : ")
+    results = classifier(texte)
+    print(results)

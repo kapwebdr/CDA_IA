@@ -20,8 +20,12 @@ pipeline = transformers.pipeline(
     device_map="auto",
     cache_dir=cache_dir
 )
+
+# Demander le prompt à l'utilisateur
+prompt = input("Entrez votre prompt pour la génération de texte : ")
+
 sequences = pipeline(
-   "Write a poem about Valencia.",
+   prompt,
     max_length=200,
     do_sample=True,
     top_k=10,

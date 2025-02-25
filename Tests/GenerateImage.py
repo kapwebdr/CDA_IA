@@ -21,7 +21,9 @@ pipe = DiffusionPipeline.from_pretrained(
 )
 pipe.to("mps")
 
-prompt = "RAW photo, a ((Full Shot)) full body photo of 28 y.o beautiful ((Caucasian woman)) strong warrior in an (warrior princess) in ((cyberpunk)) (high detailed skin:1.2) 8k uhd, DSLR, soft lighting, high quality, film grain, Fujifilm XT3"
+# Demander le prompt à l'utilisateur
+prompt = input("Entrez votre description d'image (prompt) : ")
+
 images = pipe(prompt=prompt).images
 DIR_NAME="./images/"
 dirpath = Path(DIR_NAME)

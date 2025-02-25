@@ -21,3 +21,18 @@ for result in results:
 # label: POSITIVE, with score: 0.9998
 # label: NEGATIVE, with score: 0.5309
 # ARCHFLAGS="-arch arm64" pip3 install numpy  --compile --no-cache-dir --force-reinstall
+
+# Demander le texte à analyser
+text = input("Entrez le texte à analyser : ")
+
+result = classifier(text)
+print(f"label: {result[0]['label']}, with score: {round(result[0]['score'], 4)}")
+
+# Option pour analyser plusieurs textes
+while True:
+    more = input("Voulez-vous analyser un autre texte ? (o/n) : ")
+    if more.lower() != 'o':
+        break
+    text = input("Entrez le texte à analyser : ")
+    result = classifier(text)
+    print(f"label: {result[0]['label']}, with score: {round(result[0]['score'], 4)}")
