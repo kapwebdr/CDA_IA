@@ -48,7 +48,7 @@ if __name__ == "__main__":
     # Historique de conversation
     history = [
         ("user", "Quel est le rival principal de Naruto ?"),
-        ("assistant", "Sasuke Uchiha.")
+        ("assistant", "{\"name\":\"sasuke\",\"power\":\"rinegan\",\"description\":\"Le Rinnegan (輪廻眼, signifiant littéralement : Œil de Samsâra) est réputé pour être le plus puissant des « Trois Grands Dôjutsu »,[3] les autres étant le Sharingan et le Byakugan. Il était dit qu'aux temps de troubles, celui qui manie le Rinnegan est envoyé des cieux pour devenir un « Dieu de Création » qui calmera le monde ou un « Dieu de la Destruction » qui réduira tout à néant. Le Rinnegan est caractérisé par un motif ondulatoire qui se propage sur tout le globe oculaire.[4] Le Rinnegan est caractérisé par des cercles concentriques ayant pour centre la pupille, l'iris et la sclérotique étant de couleur gris-violette\"}")
     ]
 
     # Exemple de génération

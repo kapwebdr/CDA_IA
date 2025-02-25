@@ -1,3 +1,5 @@
 torch
 transformers
 accelerate
+mlx-lm 
+llama-cpp-python
