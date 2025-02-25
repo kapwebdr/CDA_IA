@@ -3,7 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Chemin du cache local
 CACHE_DIR = "./cache_model"
-MODEL_NAME = "unsloth/Llama-3.2-1B"
+MODEL_NAME = "unsloth/Llama-3.2-1B-Instruct"
 
 def load_model():
     """ Charge le modèle et le tokenizer depuis le cache local """
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     ]
     
     # Exemple de génération
-    prompt = "Quel est le pouvoir principal de Luffy ?"
+    prompt = "Bonjour"
     response = generate_text(model, tokenizer, prompt, history)
 
     print("Réponse de l'IA:", response)
