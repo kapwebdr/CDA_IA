@@ -16,7 +16,7 @@ def format_prompt(system_prompt, history, user_input):
     """ Formate le prompt en respectant le format LLaMA 3.2 """
 
     # Ajout du prompt système
-    prompt = f"<|start_header_id|>system<|end_header_id|>\n{system_prompt}<|eot_id|>\n\n"
+    prompt = f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n{system_prompt}<|eot_id|>\n\n"
 
     # Ajout de l'historique des échanges
     for role, text in history:

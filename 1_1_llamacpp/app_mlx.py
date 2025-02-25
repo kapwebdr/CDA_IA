@@ -3,7 +3,7 @@ import os
 from mlx_lm import load, generate
 # Chargement du modèle MLX LLM
 def load_model():
-    model, tokenizer = load("mlx-community/Llama-3.2-1B-Instruct-4bit")
+    model, tokenizer = load("mlx-community/Llama-3.2-3B-Instruct-4bit")
 
     return model , tokenizer
 
@@ -11,7 +11,7 @@ def format_prompt(system_prompt, history, user_input):
     """ Formate le prompt pour LLaMA 3.2 avec historique et prompt système """
     
     # Ajout du prompt système
-    prompt = f"<|start_header_id|>system<|end_header_id|>\n{system_prompt}<|eot_id|>\n\n"
+    prompt = f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n{system_prompt}<|eot_id|>\n\n"
 
     # Ajout de l'historique des échanges
     for role, text in history:
@@ -29,7 +29,6 @@ def generate_text(model,tokenizer, system_prompt, history, user_input, max_token
     
     # Formatter le prompt
     formatted_prompt = format_prompt(system_prompt, history, user_input)
-    
     # Génération du texte
     output = generate(model, tokenizer,formatted_prompt, max_tokens=max_tokens)
     
@@ -40,8 +39,12 @@ if __name__ == "__main__":
     model,tokenizer = load_model()
 
     # Définition du prompt système
-    system_prompt = "Tu es un assistant IA spécialisé en anime et manga."
-
+    system_prompt = (
+        "Tu es une IA qui répond uniquement en JSON valide. "
+        "Ne donne aucune explication, aucune introduction, ni texte superflu. "
+        "Réponds uniquement avec un objet JSON brut."
+    )
+    
     # Historique de conversation
     history = [
         ("user", "Quel est le rival principal de Naruto ?"),
@@ -52,4 +55,4 @@ if __name__ == "__main__":
     user_input = "Quel est le pouvoir principal de Luffy ?"
     response = generate_text(model, tokenizer, system_prompt, history, user_input)
 
-    print("Réponse de l'IA:", response)
+    print(response)
